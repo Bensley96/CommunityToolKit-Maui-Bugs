@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:TintBehaviorBug_Project"
+             xmlns:safeToolKit="clr-namespace:CoreGO.CommunityToolkit.Maui.Behaviors"
+             x:Class="TintBehaviorBug_Project.MainPage"
+             BindingContext="{viewModel:MainPage_ViewModel}"
+             x:DataType="viewModel:MainPage_ViewModel">
+    
+    <VerticalStackLayout>
+            <ImageButton
+                BackgroundColor="Transparent">
+
+                <ImageButton.Triggers>
+
+                    <DataTrigger
+                        Binding="{Binding IsRunning}"
+                        TargetType="ImageButton"
+                        Value="false">
+                        <Setter Property="Source" Value="play_icon.png" />
+                    </DataTrigger>
+
+                    <DataTrigger
+                        Binding="{Binding IsRunning}"
+                        TargetType="ImageButton"
+                        Value="true">
+                        <Setter Property="Source" Value="pause_icon.png" />
+                    </DataTrigger>
+
+                </ImageButton.Triggers>
+
+                <ImageButton.Behaviors>
+
+                    <toolkit:EventToCommandBehavior
+                        Command="{Binding ToggleIsRunningButtonCommand}"
+                        EventName="Clicked" />
+
+                    <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+
+                </ImageButton.Behaviors>
+
+            </ImageButton>
+    
+    <ImageButton
+        BackgroundColor="Transparent">
+
+        <ImageButton.Triggers>
+
+            <DataTrigger
+                Binding="{Binding SafeIsRunning}"
+                TargetType="ImageButton"
+                Value="false">
+                <Setter Property="Source" Value="play_icon.png" />
+            </DataTrigger>
+
+            <DataTrigger
+                Binding="{Binding SafeIsRunning}"
+                TargetType="ImageButton"
+                Value="true">
+                <Setter Property="Source" Value="pause_icon.png" />
+            </DataTrigger>
+
+        </ImageButton.Triggers>
+
+        <ImageButton.Behaviors>
+
+            <toolkit:EventToCommandBehavior
+                Command="{Binding ToggleSafeIsRunningButtonCommand}"
+                EventName="Clicked" />
+
+            <safeToolKit:SafeIconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+
+        </ImageButton.Behaviors>
+
+    </ImageButton>
+        
+        </VerticalStackLayout>
+
+</ContentPage>
